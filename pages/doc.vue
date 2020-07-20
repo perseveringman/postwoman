@@ -295,25 +295,25 @@
   flex-flow: column;
   justify-content: center;
   flex: 1;
-  padding: 16px;
+  padding: 0px 10px;
 
   .material-icons {
-    margin-right: 16px;
+    margin-right: 4px;
   }
 }
 
 .folder {
   border-left: 1px solid var(--brd-color);
-  margin: 16px 0 0;
+  margin: 8px 0 0;
 }
 
 .request {
   border: 1px solid var(--brd-color);
   border-radius: 8px;
-  margin: 16px 0 0;
+  margin: 8px 0 0;
 
   h4 {
-    margin: 8px 0;
+    margin: 8px 0 4px;
   }
 }
 
@@ -321,6 +321,7 @@
   color: var(--fg-light-color);
   border-bottom: 1px dashed var(--brd-color);
   margin: 0;
+  padding: 0 10px;
 
   &:last-child {
     border-bottom: none;

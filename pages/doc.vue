@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="content">
-      <div class="page-columns inner-left">
+      <div class="page-columns inner-right">
         <pw-section class="green" label="Documentation" ref="documentation">
           <p v-if="this.items.length === 0" class="info">
             {{ $t("generate_docs_first") }}
@@ -214,7 +214,7 @@
         </pw-section>
       </div>
 
-      <aside class="sticky-inner inner-right">
+      <aside class="sticky-inner inner-left">
         <pw-section class="blue" :label="$t('import')" ref="import">
           <ul>
             <li>

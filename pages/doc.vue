@@ -2,82 +2,18 @@
   <div class="page">
     <div class="content">
       <div class="page-columns inner-left">
-        <pw-section class="blue" :label="$t('import')" ref="import">
-          <ul>
-            <li>
-              <p class="info">
-                {{ $t("generate_docs_message") }}
-              </p>
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <div class="flex-wrap">
-                <label for="collectionUpload">
-                  <button
-                    class="icon"
-                    @click="$refs.collectionUpload.click()"
-                    v-tooltip="$t('json')"
-                  >
-                    <i class="material-icons">folder</i>
-                    <span>{{ $t("import_collections") }}</span>
-                  </button>
-                </label>
-                <input
-                  ref="collectionUpload"
-                  name="collectionUpload"
-                  type="file"
-                  @change="uploadCollection"
-                />
-                <div>
-                  <button
-                    class="icon"
-                    @click="collectionJSON = '[]'"
-                    v-tooltip.bottom="$t('clear')"
-                  >
-                    <i class="material-icons">clear_all</i>
-                  </button>
-                </div>
-              </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <Editor
-                v-model="collectionJSON"
-                :lang="'json'"
-                :lint="false"
-                :options="{
-                  maxLines: '16',
-                  minLines: '8',
-                  fontSize: '16px',
-                  autoScrollEditorIntoView: true,
-                  showPrintMargin: false,
-                  useWorker: false,
-                }"
-              />
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <button class="icon" @click="getDoc">
-                <i class="material-icons">topic</i>
-                <span>{{ $t("generate_docs") }}</span>
-              </button>
-            </li>
-          </ul>
-        </pw-section>
-
         <pw-section class="green" label="Documentation" ref="documentation">
           <p v-if="this.items.length === 0" class="info">
             {{ $t("generate_docs_first") }}
           </p>
           <div>
             <span class="collection" v-for="(collection, index) in this.items" :key="index">
-              <h2>
-                <i class="material-icons">folder</i>
-                {{ collection.name || $t("none") }}
-              </h2>
+              <a :href="`#${collection.name}`">
+                <h2 :id="collection.name">
+                  <i class="material-icons">folder</i>
+                  {{ collection.name || $t("none") }}
+                </h2>
+              </a>
               <span class="folder" v-for="(folder, index) in collection.folders" :key="index">
                 <h3>
                   <i class="material-icons">folder_open</i>
@@ -181,10 +117,12 @@
                 v-for="(request, index) in collection.requests"
                 :key="`request-${index}`"
               >
-                <h4>
-                  <i class="material-icons">insert_drive_file</i>
-                  {{ request.name || $t("none") }}
-                </h4>
+                <a :href="`#${request.name}`">
+                  <h4 :id="request.name">
+                    <i class="material-icons">insert_drive_file</i>
+                    {{ request.name || $t("none") }}
+                  </h4>
+                </a>
                 <p class="doc-desc" v-if="request.url">
                   <span>
                     {{ $t("url") }}: <code>{{ request.url || $t("none") }}</code>
@@ -277,6 +215,71 @@
       </div>
 
       <aside class="sticky-inner inner-right">
+        <pw-section class="blue" :label="$t('import')" ref="import">
+          <ul>
+            <li>
+              <p class="info">
+                {{ $t("generate_docs_message") }}
+              </p>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <div class="flex-wrap">
+                <label for="collectionUpload">
+                  <button
+                    class="icon"
+                    @click="$refs.collectionUpload.click()"
+                    v-tooltip="$t('json')"
+                  >
+                    <i class="material-icons">folder</i>
+                    <span>{{ $t("import_collections") }}</span>
+                  </button>
+                </label>
+                <input
+                  ref="collectionUpload"
+                  name="collectionUpload"
+                  type="file"
+                  @change="uploadCollection"
+                />
+                <div>
+                  <button
+                    class="icon"
+                    @click="collectionJSON = '[]'"
+                    v-tooltip.bottom="$t('clear')"
+                  >
+                    <i class="material-icons">clear_all</i>
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <Editor
+                v-model="collectionJSON"
+                :lang="'json'"
+                :lint="false"
+                :options="{
+                  maxLines: '16',
+                  minLines: '8',
+                  fontSize: '16px',
+                  autoScrollEditorIntoView: true,
+                  showPrintMargin: false,
+                  useWorker: false,
+                }"
+              />
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <button class="icon" @click="getDoc">
+                <i class="material-icons">topic</i>
+                <span>{{ $t("generate_docs") }}</span>
+              </button>
+            </li>
+          </ul>
+        </pw-section>
         <collections @use-collection="useSelectedCollection($event)" :doc="true" />
       </aside>
     </div>
